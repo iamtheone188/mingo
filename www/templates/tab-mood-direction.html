@@ -1,0 +1,45 @@
+<ion-view view-title="Directions">
+  <ion-content>
+  	<div class="app-bg">
+
+	    <h3 style="text-align:center;font-weight:bold;">{{attraction.attraction}}</h3>
+
+		<div class="list card">
+
+			<div class="item item-image">
+		 		<img ng-src="{{attraction.imageUrl}}">
+			</div>
+		</div>
+
+		<div class="list card">
+			<div class="item item-divider" style="background:#AAC2D2;text-align:center;">
+		    		Address
+		    </div>
+		    <div class="item item-text-wrap" style="background:#D7DEED;text-align:center;">
+		      		{{attraction.address}}
+		    </div>
+
+		</div>
+
+		<button class="button button-block button-royal" ng-click="openModal()">Get Directions with Apple Maps</button>
+
+		<a class="button button-block button-positive" href="#/tab/day">Finished with Attraction</a>
+
+		<p style="line-height:2;"/>
+
+		&nbsp;
+	</div>
+  </ion-content>
+</ion-view>
+
+<script id="direction-modal.html" type="text/ng-template">
+	<div class="modal">
+	    <ion-header-bar>
+	    	<h1 class="title">Open External Application</h1>
+	    </ion-header-bar>
+	    <ion-content>
+	    	<h1 style="text-align:center;"> Opening Apple Maps... </h1>
+	    	<button class="button button-full button-energized" ng-click="closeModal()">Done</button>
+	    </ion-content>
+	</div>
+</script>

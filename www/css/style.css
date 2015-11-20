@@ -1,1 +1,61 @@
 /* Empty. Add your own CSS if you like */
+.app-bg {
+    background: url(../img/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+}
+
+.img-logo-dash {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: 252px;
+}
+
+.header-dash {
+	text-align: center;
+	font-family: verdana;
+	font-size: 64pt;
+	font-weight: bold;
+}
+
+.td-cards {
+  position: fixed;
+}
+
+.td-card {
+  display: none;
+  position: fixed;
+  -webkit-transform: scale(1,1);
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  margin-left: -150px;
+  margin-top: -150px;
+  box-sizing: border-box;
+  background-color: rgb(255,255,255);
+  border-radius: 4px;
+  overflow: hidden;
+  -webkit-animation-fill-mode: forwards;
+}
+
+.td-card .title {
+  height: 40px;
+  padding: 5px;
+  line-height: 30px;
+  color: #444;
+}
+.td-card .image {
+  overflow: hidden;
+  max-height: 210px;
+}
+.td-card .button {
+  border: none;
+}
+.td-card .image img {
+  width: 100%;
+  border-radius: 0px 0px 4px 4px;
+}

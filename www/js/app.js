@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ionic.contrib.ui.tinderCards'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -33,48 +33,80 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // setup an abstract state for the tabs directive
     .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
-
-  // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
-    views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
-      }
-    }
-  })
-
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html'
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+
+    .state('tab.dash', {
+      url: '/dash',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        'tab-dash': {
+          templateUrl: 'templates/tab-dash.html',
+          controller: 'DashCtrl'
         }
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.mood', {
+      url: '/mood',
+      views: {
+        'tab-mood': {
+          templateUrl: 'templates/tab-mood.html',
+          controller: 'MoodCtrl'
+        }
+      }
+    })
+
+    .state('tab.mood-attraction', {
+      url: '/mood/:moodId',
+      cache: false,
+      views: {
+        'tab-mood': {
+          templateUrl: 'templates/tab-mood-attraction.html',
+          controller: 'AttCtrl'
+        }
+      }
+    })
+
+    .state('tab.mood-direction', {
+      url: '/direction',
+      cache: false,
+      views: {
+        'tab-mood': {
+          templateUrl: 'templates/tab-mood-direction.html',
+          controller: 'DirCtrl'
+        }
+      }
+    })
+
+    .state('tab.mood-day', {
+      url: '/day',
+      cache: false,
+      views: {
+        'tab-mood': {
+          templateUrl: 'templates/tab-mood-day.html',
+          controller: 'DayCtrl'
+        }
+      }
+    })
+
+    .state('tab.reminder', {
+      url: '/reminder',
+      views: {
+        'tab-reminder': {
+          templateUrl: 'templates/tab-reminder.html',
+          controller: 'ReminderCtrl'
+        }
+      }
+    })
+
+  .state('tab.agent', {
+    url: '/agent',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-agent': {
+        templateUrl: 'templates/tab-agent.html',
+        controller: 'AgentCtrl'
       }
     }
   });

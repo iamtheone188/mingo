@@ -1,0 +1,31 @@
+<ion-view view-title="Day">
+  <ion-content>
+  	<div class="app-bg">
+
+	    <h2 style="text-align:center;font-weight:bold;">Your Day So Far</h2>
+
+	    <div class="row">
+			<div class="col col-20">
+				<h3>Time</h3>
+				<div ng-repeat="entry in daySoFar">
+					<p>{{entry.time}}</p>
+				</div>
+			</div>
+			<div class="col">
+				<h3>Activity</h3>
+				<div ng-repeat="entry in daySoFar">
+					<p>{{entry.activity}}</p>
+				</div>
+			</div>
+		</div>
+
+		<button class="button button-block button-assertive" on-tap="clearDay()">Clear Activities List</button>
+
+		<a class="button button-block button-positive" href="#/tab/mood">Continue Exploring</a>
+
+		<p style="line-height:25;"/>
+
+		&nbsp;
+	</div>
+  </ion-content>
+</ion-view>
