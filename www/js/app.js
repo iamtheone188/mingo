@@ -93,10 +93,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     .state('tab.reminder', {
       url: '/reminder',
+      cache: false,
       views: {
         'tab-reminder': {
           templateUrl: 'templates/tab-reminder.html',
           controller: 'ReminderCtrl'
+        }
+      }
+    })
+
+    .state('tab.reminder-add', {
+      url: '/reminder-add',
+      cache: false,
+      views: {
+        'tab-reminder': {
+          templateUrl: 'templates/tab-reminder-add.html',
+          controller: 'ReminderAddCtrl'
         }
       }
     })
@@ -107,6 +119,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'tab-agent': {
         templateUrl: 'templates/tab-agent.html',
         controller: 'AgentCtrl'
+      }
+    }
+  })
+
+  .state('tab.agent-where', {
+    url: '/where',
+    views: {
+      'tab-agent': {
+        templateUrl: 'templates/tab-agent-where.html',
+        controller: 'WhereCtrl'
       }
     }
   });

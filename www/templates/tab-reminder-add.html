@@ -1,0 +1,105 @@
+<ion-view view-title="Add Reminder">
+  <ion-content>
+  	<div class="app-bg">
+  		<h1 style="text-align:center;">Add Reminder</h1>
+
+		<div class="list">
+
+			<label class="item item-input">
+				<div class="input-label">
+					Start Date:
+				</div>
+				<input type="date" name="startdate" ng-model="inputStartDate" ng-change="changeStartDate(inputStartDate)"></input>
+			</label>
+
+			<label class="item item-input item-select">
+				<div class="input-label">
+					Hour:
+				</div>
+				<select ng-model="inputHour" ng-change="changeHour(inputHour)">
+					<option>0</option>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					<option>8</option>
+					<option>9</option>
+					<option>10</option>
+					<option>11</option>
+					<option>12</option>
+					<option>13</option>
+					<option>14</option>
+					<option>15</option>
+					<option>16</option>
+					<option>17</option>
+					<option>18</option>
+					<option>19</option>
+					<option>20</option>
+					<option>21</option>
+					<option>22</option>
+					<option>23</option>
+				</select>
+			</label>
+
+			<label class="item item-input item-select">
+				<div class="input-label">
+					Minute:
+				</div>
+				<select ng-model="inputMinute" ng-change="changeMinute(inputMinute)">
+					<option>0</option>
+					<option>5</option>
+					<option>10</option>
+					<option>15</option>
+					<option>20</option>
+					<option>25</option>
+					<option>30</option>
+					<option>35</option>
+					<option>40</option>
+					<option>45</option>
+					<option>50</option>
+					<option>55</option>
+				</select>
+			</label>
+
+			<label class="item item-input item-select">
+				<div class="input-label">
+					Duration (Hours):
+				</div>
+				<select ng-model="inputDuration" ng-change="changeDuration(inputDuration)">
+					<option>0.5</option>
+					<option>1</option>
+					<option>1.5</option>
+					<option>2</option>
+					<option>2.5</option>
+					<option>3</option>
+					<option>3.5</option>
+					<option>4</option>
+					<option>4.5</option>
+					<option>5</option>
+					<option>5.5</option>
+					<option>6</option>
+					<option>6.5</option>
+					<option>7</option>
+					<option>7.5</option>
+					<option>8</option>
+					<option>8.5</option>
+					<option>9</option>
+					<option>9.5</option>
+					<option>10</option>
+					<option>10.5</option>
+					<option>11</option>
+					<option>11.5</option>
+					<option>12</option>
+				</select>
+			</label>
+
+		</div>
+
+		<button class="button button-block button-positive" ng-click="addTime()">Add Reminder</button>
+
+  	</div>
+  </ion-content>
+</ion-view>

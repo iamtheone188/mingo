@@ -1,0 +1,30 @@
+<ion-view view-title="Where">
+  <ion-content>
+  	<div class="app-bg">
+
+  		<h1 style="text-align:center;">Where are you headed?</h1>
+
+  		<p />
+
+  		<p style="text-align:center;font-weight:bold;color:gray;">Currently Supported Locations: Paris and San Francisco</p>
+
+  		<label class="item item-input">
+		  <i class="icon ion-search placeholder-icon"></i>
+		  <input type="search" placeholder="Search" ng-model="searchString" ng-change="changeSearch(searchString)">
+		</label>
+
+		<div class="list card">
+
+			<div class="item item-image" ng-click="changeLocation()">
+		 		<img ng-src="./img/map.png">
+			</div>
+		</div>
+
+		<a class="button button-block button-positive" href="#/tab/mustdo">Next</a>
+
+		<p style="line-height:2;"/>
+
+		&nbsp;
+	</div>
+  </ion-content>
+</ion-view>

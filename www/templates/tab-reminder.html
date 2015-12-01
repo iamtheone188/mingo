@@ -1,5 +1,37 @@
 <ion-view view-title="Reminder">
   <ion-content>
-    <h1>Set Reminder</h1>
+  	<div class="app-bg">
+  		<h1 style="text-align:center;">Your Mingo Reminders</h1>
+
+		<ion-list>
+			<div class="item item-divider" style="text-align:center;">
+		    	Date and Time
+		 	</div>
+      		<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="entry in remindersFormatted" type="item-text-wrap">
+        		<div ng-if="entry.id != remindersFormatted.length - 1">
+        			<h2>{{entry.strTime}}</h2>
+        			<h3>{{entry.strDate}}</h3>
+        		</div>
+        		<div ng-if="entry.id == remindersFormatted.length - 1">
+        			<h2 style="color:blue;">{{entry.strTime}}</h2>
+        			<h3 style="color:blue;">{{entry.strDate}}</h3>
+        		</div>
+
+        		<ion-option-button class="button-assertive" ng-click="removeEntry(entry)">
+          			Delete
+        		</ion-option-button>
+      		</ion-item>
+    	</ion-list>
+    	<div ng-if="remindersFormatted.length == 0">
+    		<p style="text-align:center;font-weight:bold;color:red;">No Reminders</p>
+    	</div>
+    	<div ng-if="remindersFormatted.length != 0">
+    		<p style="text-align:center;font-weight:bold;color:red;">To remove an alarm entry, swipe left</p>
+    	</div>
+
+		<a class="button button-block button-positive" href="#/tab/reminder-add">Add Reminder</a>
+
+		<a class="button button-block button-positive" href="#/tab/dash">Done</a>
+  	</div>
   </ion-content>
 </ion-view>
