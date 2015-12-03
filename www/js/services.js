@@ -171,70 +171,80 @@ angular.module('starter.services', [])
       attraction: 'Alcatraz Island',
       activity: 'Explore Alcatraz Island',
       imageUrl: './img/sfbay0.jpg',
-      description: 'Alcatraz Island offers a close-up look at the site of the first lighthouse and US built fort on the West Coast.'
+      description: 'Alcatraz Island offers a close-up look at the site of the first lighthouse and US built fort on the West Coast.',
+      address: 'Alcatraz Island, San Francisco, California, USA'
     },
     {
       id: 1,
       attraction: 'Asian Art Museum of San Francisco',
       activity: 'Explore the Asian Art Museum of San Francisco',
       imageUrl: './img/sfbay1.jpg',
-      description: 'The Asian Art Museum holds one of the most comprehensive collections of Asian art in the world.'
+      description: 'The Asian Art Museum holds one of the most comprehensive collections of Asian art in the world.',
+      address: '200 Larkin St, San Francisco, California, USA'
     },
     {
       id: 2,
       attraction: 'The Exploratorium',
       activity: 'Learn at the Exploratorium',
       imageUrl: './img/sfbay2.jpg',
-      description: 'With 600 indoor and outdoor exhibits that cover subjects like outer space, the human body and science, the Exploratorium encourages visitors to don their thinking caps.'
+      description: 'With 600 indoor and outdoor exhibits that cover subjects like outer space, the human body and science, the Exploratorium encourages visitors to don their thinking caps.',
+      address: 'Pier 15, The Embarcadero, San Francisco, California, USA'
     },
     {
       id: 3,
       attraction: 'Japanese Tea Garden',
       activity: 'Enjoy the Japanese Tea Garden',
       imageUrl: './img/sfbay3.jpg',
-      description: 'The tranquil Japanese Tea Garden is a great place to find your bearings and relax.'
+      description: 'The tranquil Japanese Tea Garden is a great place to find your bearings and relax.',
+      address: 'Golden Gate Park, San Francisco, California, USA'
     },
     {
       id: 4,
       attraction: 'Cable Car',
       activity: 'Take a ride on a Cable Car',
       imageUrl: './img/sfbay4.jpg',
-      description: 'To get the full experience of the San Francisco\'s charm, you\'ll have to hop on board. San Francisco\'s cable car system is the last of its kind in the United States.'
+      description: 'To get the full experience of the San Francisco\'s charm, you\'ll have to hop on board. San Francisco\'s cable car system is the last of its kind in the United States.',
+      address: 'San Francisco, California, USA'
     },
     {
       id: 5,
       attraction: 'California Academy of Sciences',
       activity: 'Explore the California Academy of Sciences',
       imageUrl: './img/sfbay5.jpg',
-      description: 'California Academy of Science is home to engaging exhibits and shows, and a fascinating team of scientists and presenters working to explore the diversity of life.'
+      description: 'California Academy of Science is home to engaging exhibits and shows, and a fascinating team of scientists and presenters working to explore the diversity of life.',
+      address: '55 Music Concourse Dr, San Francisco, California, USA'
     },
     {
       id: 6,
       attraction: 'Yerba Buena Gardens',
       activity: 'Lounge at Yerba Buena Gardens',
       imageUrl: './img/sfbay6.jpg',
-      description: 'Located in the cultural heart of San Francisco, Yerba Buena Gardens is the perfect place to play, dine, shop or just relax.'
+      description: 'Located in the cultural heart of San Francisco, Yerba Buena Gardens is the perfect place to play, dine, shop or just relax.',
+      address: '750 Howard St, San Francisco, California, USA'
     },
     {
       id: 7,
       attraction: 'The Bay Lights',
       activity: 'Watch the Bay Lights',
       imageUrl: './img/sfbay7.jpg',
-      description: 'Marvel at the 25,000 white LEDs dancing and sparkling in this large-scale light installation on the Bay Bridge’s western span.'
+      description: 'Marvel at the 25,000 white LEDs dancing and sparkling in this large-scale light installation on the Bay Bridge’s western span.',
+      address: 'San Francisco – Oakland Bay Bridge, California, USA'
     },
     {
       id: 8,
       attraction: 'Lands End',
       activity: 'Explore Lands End',
       imageUrl: './img/sfbay8.jpg',
-      description: 'At the northwestern corner of San Francisco, there is a series of stunning views at every turn in Lands End’s wild and windy trail.'
+      description: 'At the northwestern corner of San Francisco, there is a series of stunning views at every turn in Lands End’s wild and windy trail.',
+      address: '680 Point Lobos Ave, San Francisco, California, USA'
     },
     {
       id: 9,
       attraction: 'Mission District',
       activity: 'Explore the Mission District',
       imageUrl: './img/sfbay9.jpg',
-      description: 'The Mission District has attracted San Francisco\'s young bohemian crowd in the past decade, but it\'s still retained its authentic, local Mexican ambiance.'
+      description: 'The Mission District has attracted San Francisco\'s young bohemian crowd in the past decade, but it\'s still retained its authentic, local Mexican ambiance.',
+      address: 'Mission District, San Francisco, California, USA'
     }];
 
   return {

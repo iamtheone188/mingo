@@ -80,7 +80,7 @@ angular.module('starter.controllers', [])
     var rem = $scope.remind;
     var tempString = '';
     var tempStringDate = '';
-    tempStringDate += rem.startTime.getMonth().toString() + '/' + rem.startTime.getDate().toString() + '/' + rem.startTime.getFullYear().toString();
+    tempStringDate += (rem.startTime.getMonth()+1).toString() + '/' + rem.startTime.getDate().toString() + '/' + rem.startTime.getFullYear().toString();
     
     if(rem.startTime.getHours() < 10 && rem.startTime.getMinutes() < 10)
       tempString += '0' + rem.startTime.getHours() + ':' + '0' + rem.startTime.getMinutes();
@@ -111,7 +111,7 @@ angular.module('starter.controllers', [])
         scope: $scope,
         buttons: [
           {
-            text: 'Cancel',
+            text: 'Cancel Alarm',
             type: 'button-assertive',
             onTap: function(e) {
               $state.go('tab.dash', {}, {reload: true});
@@ -135,8 +135,8 @@ angular.module('starter.controllers', [])
       console.log($rootScope.tripDates.startDate);
       var s = $scope.tempStartDate;
       var e = $scope.tempEndDate;
-      $scope.startDateString = s.getMonth().toString() + '/' + s.getDate().toString() + '/' + s.getFullYear().toString();
-      $scope.endDateString = e.getMonth().toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
+      $scope.startDateString = (s.getMonth()+1).toString() + '/' + s.getDate().toString() + '/' + s.getFullYear().toString();
+      $scope.endDateString = (e.getMonth()+1).toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
 
       var tripPopup = $ionicPopup.show({
         template: '<p>Trip Dates: {{startDateString}} - {{endDateString}}</p><div ng-if="appDetectedLocation == \'paris\'"><p>Trip Location: Paris, France</p></div><div ng-if="appDetectedLocation != \'paris\'"><p>Trip Location: San Francisco, California, USA</p></div>',
@@ -203,7 +203,7 @@ angular.module('starter.controllers', [])
   $scope.showAlertDates = function() {
     var alertPopup = $ionicPopup.alert({
       title: 'Invalid Dates',
-      template: 'Trip End Date must be the same of after Trip Start Date!'
+      template: 'Trip End Date must be the same or after Trip Start Date!'
     });
     alertPopup.then(function(res) {
       console.log('Alert!');
@@ -213,8 +213,8 @@ angular.module('starter.controllers', [])
   $scope.showPopup = function() {
     var s = $rootScope.tripDates.startDate;
     var e = $rootScope.tripDates.endDate;
-    $scope.startDateString = s.getMonth().toString() + '/' + s.getDate().toString() + '/' + s.getFullYear().toString();
-    $scope.endDateString = e.getMonth().toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
+    $scope.startDateString = (s.getMonth()+1).toString() + '/' + s.getDate().toString() + '/' + s.getFullYear().toString();
+    $scope.endDateString = (e.getMonth()+1).toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
 
     var myPopup = $ionicPopup.show({
       template: '<p>Trip Dates: {{startDateString}} - {{endDateString}}</p><div ng-if="appDetectedLocation == \'paris\'"><p>Trip Location: Paris, France</p></div><div ng-if="appDetectedLocation != \'paris\'"><p>Trip Location: San Francisco, California, USA</p></div>',
@@ -319,8 +319,8 @@ angular.module('starter.controllers', [])
 .controller('MustDoCtrl', function($scope, $state, $rootScope, $ionicPopup) {
   var s = $rootScope.tripDates.startDate;
   var e = $rootScope.tripDates.endDate;
-  $scope.startDateString = s.getMonth().toString() + '/' + s.getDate().toString() + '/' + s.getFullYear().toString();
-  $scope.endDateString = e.getMonth().toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
+  $scope.startDateString = (s.getMonth()+1).toString() + '/' + s.getDate().toString() + '/' + s.getFullYear().toString();
+  $scope.endDateString = (e.getMonth()+1).toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
 
   $scope.getDetails = function(attId) {
     $state.go('tab.agent-details', {attId: attId}, {reload: true});
@@ -519,7 +519,7 @@ angular.module('starter.controllers', [])
   for(var i=0; i<rems.length; i++) {
     var tempString = '';
     var tempStringDate = '';
-    tempStringDate += rems[i].startTime.getMonth().toString() + '/' + rems[i].startTime.getDate().toString() + '/' + rems[i].startTime.getFullYear().toString();
+    tempStringDate += (rems[i].startTime.getMonth()+1).toString() + '/' + rems[i].startTime.getDate().toString() + '/' + rems[i].startTime.getFullYear().toString();
     
     if(rems[i].startTime.getHours() < 10 && rems[i].startTime.getMinutes() < 10)
       tempString += '0' + rems[i].startTime.getHours() + ':' + '0' + rems[i].startTime.getMinutes();
