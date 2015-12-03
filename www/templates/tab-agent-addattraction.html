@@ -1,14 +1,10 @@
-<ion-view view-title="Attractions">
+<ion-view view-title="Add Attraction">
   <ion-content>
   	<div class="app-bg">
-  		&nbsp;
-  		<div class="list card">
-			<div class="item item-divider" style="background:#AAC2D2;text-align:center;">
-		    	Current Mood: {{feeling.feeling[0].toUpperCase() + feeling.feeling.slice(1)}}
-		    </div>
-		</div>
 
-	    <h3 style="text-align:center;font-weight:bold;">{{attraction.activity}}</h3>
+  		<h1 style="text-align:center;">Add an Attraction</h1>
+
+  		<h3 style="text-align:center;font-weight:bold;">{{attraction.attraction}}</h3>
 
 		<div class="list card">
 
@@ -32,14 +28,14 @@
 				<button class="button button-block button-stable icon-left ion-chevron-left" style="width:90%;margin-left:auto;margin-right:auto" on-tap="tapPrev()">Prev</button>
 			</div>
 			<div class="col-50">
-				<a class="button button-block button-positive" style="width:90%;margin-left:auto;margin-right:auto" href="#/tab/direction">Select Attraction</a>
+				<button class="button button-block button-positive" style="width:90%;margin-left:auto;margin-right:auto" on-tap="add()">Add Attraction</button>
 			</div>
 			<div class="col-25">
 				<button class="button button-block button-stable icon-right ion-chevron-right" style="width:90%;margin-left:auto;margin-right:auto" on-tap="tapNext()">Next</button>
 			</div>
 		</div>
 
-		<p style="line-height:3;"/>
+		<p style="line-height:2;"/>
 
 		&nbsp;
 	</div>

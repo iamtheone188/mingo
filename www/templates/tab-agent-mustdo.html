@@ -1,0 +1,50 @@
+<ion-view view-title="Must See Attractions">
+  <ion-content>
+  	<div class="app-bg">
+  	<h1 style="text-align:center;">Must-See Attractions</h1>
+
+    <div class="list card">
+      <div class="item item-divider" style="background:#AAC2D2;text-align:center;">
+          Trip Dates: {{startDateString}} - {{endDateString}}
+        </div>
+    </div>
+
+		<ion-list>
+			<div class="item item-divider" style="text-align:center;">
+		    	Current List
+		 	</div>
+      		<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="entry in mustDoList" type="item-text-wrap" ng-click="getDetails({{entry.id}})">
+      			<h2>{{entry.name}}</h2>
+            <div ng-if="appDetectedLocation == 'paris'">
+              <h3 style="color:gray;">Paris, France</h3>
+            </div>
+            <div ng-if="appDetectedLocation != 'paris'">
+              <h3 style="color:gray;">San Francisco, California, USA</h3>
+            </div>
+
+            <i class="icon ion-chevron-right icon-accessory"></i>
+
+        		<ion-option-button class="button-assertive" ng-click="removeEntry(entry)">
+          			Delete
+        		</ion-option-button>
+      		</ion-item>
+    	</ion-list>
+    	<div ng-if="mustDoList.length == 0">
+    		<p style="text-align:center;font-weight:bold;color:red;">Nothing in Must-See List</p>
+    	</div>
+    	<div ng-if="mustDoList.length != 0">
+    		<p style="text-align:center;font-weight:bold;color:red;">To remove an attraction, swipe left</p>
+    	</div>
+
+      <p style="line-height:2;" />
+      &nbsp;
+
+		  <a class="button button-block button-positive" href="#/tab/addattraction">Add Attraction</a>
+
+		  <button class="button button-block button-positive" ng-click="setTrip()">Set Trip</button>
+      
+      <p style="line-height:15;" />
+      &nbsp;
+  	</div>
+  </ion-content>
+</ion-view>

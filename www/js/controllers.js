@@ -11,24 +11,184 @@ angular.module('starter.controllers', [])
     $rootScope.pageReload = false;
   if($rootScope.reminders == undefined)
     $rootScope.reminders = [];
+  if($rootScope.tripDates == undefined)
+    $rootScope.tripDates = {startDate: null, endDate: null};
   if($rootScope.searchString == undefined)
     $rootScope.searchString = "Paris, France";
+  if($rootScope.mustDoList == undefined)
+    $rootScope.mustDoList = [];
+  if($rootScope.tripSet == undefined)
+    $rootScope.tripSet = false;
 })
 
-.controller('AgentCtrl', function($scope, $state, $ionicPopup) {
+.controller('DebugCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicHistory) {
+  $scope.triggerAlarm = function() {
+    if($rootScope.reminders.length == 0)
+      $scope.showAlertAlarm();
+    else {
+      //Find next alarm
+      var minId = 0;
+      for(var i=1; i<$rootScope.reminders.length; i++) {
+        if($rootScope.reminders[i].startTime.getTime() < $rootScope.reminders[minId].startTime.getTime())
+          minId = i;
+      }
+      //Set scope, remove alarm, and trigger Popup
+      $scope.remind = $rootScope.reminders[minId];
+      $rootScope.reminders.splice(minId, 1);
+      $ionicHistory.clearHistory();
+      $scope.showAlarmPopup();
+    }
+  };
+
+  $scope.triggerTrip = function() {
+    if(!$rootScope.tripSet)
+      $scope.showAlertTrip();
+    else {
+      //Unset trip and trigger Popup
+      $rootScope.tripSet = false;
+      $scope.tempStartDate = $rootScope.tripDates.startDate;
+      $scope.tempEndDate = $rootScope.tripDates.endDate;
+      $rootScope.tripDates = {startDate: null, endDate: null};
+      $rootScope.searchString = "Paris, France";
+      $rootScope.mustDoList = [];
+      $ionicHistory.clearHistory();
+      $scope.showTripPopup();
+    }
+  };
+
+  $scope.showAlertAlarm = function() {
+    var alertPopup = $ionicPopup.alert({
+      title: 'No Reminders Found',
+      template: 'No reminders found! Please ensure you have set reminders before using this debug item!'
+    });
+    alertPopup.then(function(res) {
+      console.log('Alert!');
+    });
+  };
+
+  $scope.showAlertTrip = function() {
+    var alertPopup = $ionicPopup.alert({
+      title: 'No Trip Set!',
+      template: 'No trip has been set yet! Please ensure you have set a trip before using this debug item!'
+    });
+    alertPopup.then(function(res) {
+      console.log('Alert!');
+    });
+  };
+
+  $scope.showAlarmPopup = function() {
+    var rem = $scope.remind;
+    var tempString = '';
+    var tempStringDate = '';
+    tempStringDate += rem.startTime.getMonth().toString() + '/' + rem.startTime.getDate().toString() + '/' + rem.startTime.getFullYear().toString();
+    
+    if(rem.startTime.getHours() < 10 && rem.startTime.getMinutes() < 10)
+      tempString += '0' + rem.startTime.getHours() + ':' + '0' + rem.startTime.getMinutes();
+    else if(rem.startTime.getHours() < 10)
+      tempString += '0' + rem.startTime.getHours() + ':' + rem.startTime.getMinutes();
+    else if(rem.startTime.getMinutes() < 10)
+      tempString += rem.startTime.getHours() + ':' + '0' + rem.startTime.getMinutes();
+    else
+      tempString += rem.startTime.getHours() + ':' + rem.startTime.getMinutes();
+
+    tempString += " - "
+
+    if(rem.endTime.getHours() < 10 && rem.endTime.getMinutes() < 10)
+      tempString += '0' + rem.endTime.getHours() + ':' + '0' + rem.endTime.getMinutes();
+    else if(rem.endTime.getHours() < 10)
+      tempString += '0' + rem.endTime.getHours() + ':' + rem.endTime.getMinutes();
+    else if(rem.endTime.getMinutes() < 10)
+      tempString += rem.endTime.getHours() + ':' + '0' + rem.endTime.getMinutes();
+    else
+      tempString += rem.endTime.getHours() + ':' + rem.endTime.getMinutes();
+    $scope.alarmDate = tempStringDate;
+    $scope.alarmTimes = tempString;
+
+    var alarmPopup = $ionicPopup.show({
+        template: '<p style="text-align:center;">Alarm</p><p>Date: {{alarmDate}}</p><p>Time: {{alarmTimes}}</p>',
+        title: 'It\'s Mingo Time!',
+        subTitle: 'Mingo Alarm',
+        scope: $scope,
+        buttons: [
+          {
+            text: 'Cancel',
+            type: 'button-assertive',
+            onTap: function(e) {
+              $state.go('tab.dash', {}, {reload: true});
+            }
+          },
+          {
+            text: 'Start Exploring',
+            type: 'button-positive',
+            onTap: function(e) {
+              $state.go('tab.mood', {}, {reload: true});
+            }
+          }
+        ]
+      });
+      alarmPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+    };
+
+    $scope.showTripPopup = function() {
+      console.log($rootScope.tripDates.startDate);
+      var s = $scope.tempStartDate;
+      var e = $scope.tempEndDate;
+      $scope.startDateString = s.getMonth().toString() + '/' + s.getDate().toString() + '/' + s.getFullYear().toString();
+      $scope.endDateString = e.getMonth().toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
+
+      var tripPopup = $ionicPopup.show({
+        template: '<p>Trip Dates: {{startDateString}} - {{endDateString}}</p><div ng-if="appDetectedLocation == \'paris\'"><p>Trip Location: Paris, France</p></div><div ng-if="appDetectedLocation != \'paris\'"><p>Trip Location: San Francisco, California, USA</p></div>',
+        title: 'It\'s Mingo Time!',
+        subTitle: 'Mingo Trip',
+        scope: $scope,
+        buttons: [
+          {
+            text: 'Cancel',
+            type: 'button-assertive',
+            onTap: function(e) {
+              $state.go('tab.dash', {}, {reload: true});
+            }
+          },
+          {
+            text: 'Start Exploring',
+            type: 'button-positive',
+            onTap: function(e) {
+              $state.go('tab.mood', {}, {reload: true});
+            }
+          }
+        ]
+      });
+      tripPopup.then(function(res) {
+        console.log('Tapped!', res);
+      });
+    };
+})
+
+.controller('AgentCtrl', function($scope, $state, $rootScope, $ionicPopup) {
   $scope.inputStartDate = '';
+  if($rootScope.tripDates.startDate != null)
+    $scope.inputStartDate = $rootScope.tripDates.startDate;
   $scope.changeStartDate = function(newStartDate) { $scope.inputStartDate = newStartDate; };
   $scope.inputEndDate = '';
+  if($rootScope.tripDates.endDate != null)
+    $scope.inputEndDate = $rootScope.tripDates.endDate;
   $scope.changeEndDate = function(newEndDate) { $scope.inputEndDate = newEndDate; };
 
   $scope.next = function() {
     if($scope.inputStartDate == '' || $scope.inputEndDate == '')
       $scope.showAlertBlank();
     else {
-      //SAVE THINGS HERE
-      $state.go('tab.agent-where', {}, {reload: true});
+      if($scope.inputStartDate.getTime() > $scope.inputEndDate.getTime())
+        $scope.showAlertDates();
+      else {
+        $rootScope.tripDates.startDate = $scope.inputStartDate;
+        $rootScope.tripDates.endDate = $scope.inputEndDate;
+        $state.go('tab.agent-where', {}, {reload: true});
+      }
     }
-  }
+  };
 
   $scope.showAlertBlank = function() {
     var alertPopup = $ionicPopup.alert({
@@ -39,9 +199,78 @@ angular.module('starter.controllers', [])
       console.log('Alert!');
     });
   };
+
+  $scope.showAlertDates = function() {
+    var alertPopup = $ionicPopup.alert({
+      title: 'Invalid Dates',
+      template: 'Trip End Date must be the same of after Trip Start Date!'
+    });
+    alertPopup.then(function(res) {
+      console.log('Alert!');
+    });
+  };
+
+  $scope.showPopup = function() {
+    var s = $rootScope.tripDates.startDate;
+    var e = $rootScope.tripDates.endDate;
+    $scope.startDateString = s.getMonth().toString() + '/' + s.getDate().toString() + '/' + s.getFullYear().toString();
+    $scope.endDateString = e.getMonth().toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
+
+    var myPopup = $ionicPopup.show({
+      template: '<p>Trip Dates: {{startDateString}} - {{endDateString}}</p><div ng-if="appDetectedLocation == \'paris\'"><p>Trip Location: Paris, France</p></div><div ng-if="appDetectedLocation != \'paris\'"><p>Trip Location: San Francisco, California, USA</p></div>',
+      title: 'Your Mingo Trip Has Been Set!',
+      scope: $scope,
+      buttons: [
+        {
+          text: 'Cancel Trip',
+          type: 'button-small button-assertive',
+          onTap: function(e) {
+            $rootScope.tripSet = false;
+            $rootScope.tripDates = {startDate: null, endDate: null};
+            $rootScope.searchString = "Paris, France";
+            $rootScope.mustDoList = [];
+            $scope.showAlertCancelled();
+            $state.go('tab.dash', {}, {reload: true});
+          }
+        },
+        {
+          text: 'Edit Trip',
+          type: 'button-small button-royal',
+          onTap: function(e) {
+            $rootScope.tripSet = false;
+            $state.go('tab.agent', {}, {reload: true});
+          }
+        },
+        {
+          text: 'Home',
+          type: 'button-small button-positive',
+          onTap: function(e) {
+            $state.go('tab.dash', {}, {reload: true});
+          }
+        }
+      ]
+    });
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+  };
+
+  $scope.showAlertCancelled = function() {
+    var alertPopup = $ionicPopup.alert({
+      title: 'Trip Cancelled',
+      template: 'Trip has been cancelled!'
+    });
+    alertPopup.then(function(res) {
+      console.log('Alert!');
+    });
+  };
+
+  //Page Guard for setTrip
+  if($rootScope.tripSet)
+    $scope.showPopup();
 })
 
-.controller('WhereCtrl', function($scope, $state, $rootScope) {
+.controller('WhereCtrl', function($scope, $state, $rootScope, $ionicPopup) {
   $scope.searchString = $rootScope.searchString;
   $scope.changeSearch = function(newString) { $scope.searchString = newString; };
 
@@ -55,6 +284,198 @@ angular.module('starter.controllers', [])
       $scope.searchString = "Paris, France";
     }
   };
+
+  $scope.next = function() {
+    //Match the string against paris, sf, and san francisco, clear list if necessary
+    if($scope.searchString.toLowerCase().match('paris') != null) {
+      if($rootScope.appDetectedLocation != 'paris')
+        $rootScope.mustDoList = [];
+      $rootScope.appDetectedLocation = 'paris';
+      $state.go('tab.agent-mustdo', {}, {reload: true});
+    }
+    else if($scope.searchString.toLowerCase().match('sf') != null || $scope.searchString.toLowerCase().match('san') != null) {
+      if($rootScope.appDetectedLocation != 'sfbay')
+        $rootScope.mustDoList = [];
+      $rootScope.appDetectedLocation = 'sfbay';
+      $state.go('tab.agent-mustdo', {}, {reload: true});
+    }
+    else {
+      $scope.showAlertInvalid();
+    }
+  };
+
+  $scope.showAlertInvalid = function() {
+    var alertPopup = $ionicPopup.alert({
+      title: 'Unsupported Location',
+      template: 'Location not yet supported! Please enter either Paris or San Francisco!'
+    });
+    alertPopup.then(function(res) {
+      console.log('Alert!');
+    });
+  };
+
+})
+
+.controller('MustDoCtrl', function($scope, $state, $rootScope, $ionicPopup) {
+  var s = $rootScope.tripDates.startDate;
+  var e = $rootScope.tripDates.endDate;
+  $scope.startDateString = s.getMonth().toString() + '/' + s.getDate().toString() + '/' + s.getFullYear().toString();
+  $scope.endDateString = e.getMonth().toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
+
+  $scope.getDetails = function(attId) {
+    $state.go('tab.agent-details', {attId: attId}, {reload: true});
+  };
+
+  $scope.removeEntry = function(entry) {
+    //Find entry in list and remove
+    for(var i=0; i<$rootScope.mustDoList.length; i++) {
+      if($rootScope.mustDoList[i].id == entry.id) {
+        $rootScope.mustDoList.splice(i, 1);
+        break;
+      }
+    }
+    $state.go('tab.agent-mustdo', {}, {reload: true});
+  };
+
+  $scope.setTrip = function() {
+    $rootScope.tripSet = true;
+    $scope.showPopup();
+  }
+
+  $scope.showPopup = function() {
+    var myPopup = $ionicPopup.show({
+      template: '<p>Trip Dates: {{startDateString}} - {{endDateString}}</p><div ng-if="appDetectedLocation == \'paris\'"><p>Trip Location: Paris, France</p></div><div ng-if="appDetectedLocation != \'paris\'"><p>Trip Location: San Francisco, California, USA</p></div>',
+      title: 'Your Mingo Trip Has Been Set!',
+      scope: $scope,
+      buttons: [
+        {
+          text: 'Cancel Trip',
+          type: 'button-small button-assertive',
+          onTap: function(e) {
+            $rootScope.tripSet = false;
+            $rootScope.tripDates = {startDate: null, endDate: null};
+            $rootScope.searchString = "Paris, France";
+            $rootScope.mustDoList = [];
+            $scope.showAlertCancelled();
+            $state.go('tab.dash', {}, {reload: true});
+          }
+        },
+        {
+          text: 'Edit Trip',
+          type: 'button-small button-royal',
+          onTap: function(e) {
+            $rootScope.tripSet = false;
+            $state.go('tab.agent', {}, {reload: true});
+          }
+        },
+        {
+          text: 'Home',
+          type: 'button-small button-positive',
+          onTap: function(e) {
+            $state.go('tab.dash', {}, {reload: true});
+          }
+        }
+      ]
+    });
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+  };
+
+  $scope.showAlertCancelled = function() {
+    var alertPopup = $ionicPopup.alert({
+      title: 'Trip Cancelled',
+      template: 'Trip has been cancelled!'
+    });
+    alertPopup.then(function(res) {
+      console.log('Alert!');
+    });
+  };
+
+  //Page Guard
+  if($rootScope.tripSet)
+    $scope.showPopup();
+
+})
+
+.controller('AddAttractionCtrl', function($scope, $state, $rootScope, $ionicPopup, AttractionsParis, AttractionsSFBay) {
+  if($scope.appDetectedLocation == 'sfbay') {
+    $scope.attraction = AttractionsSFBay.get(0);
+    $scope.attractions = AttractionsSFBay.all();
+  }
+  else {
+    $scope.attraction = AttractionsParis.get(0);
+    $scope.attractions = AttractionsParis.all();
+  }
+
+  $scope.attractionSelected = 0;
+
+  $scope.tapPrev = function() {
+    var curId = this.attraction.id;
+    if(curId < 1)
+      curId = this.attractions.length - 1;
+    else
+      curId = curId - 1;
+    if(this.appDetectedLocation == 'sfbay')
+      $scope.attraction = AttractionsSFBay.get(curId);
+    else
+      $scope.attraction = AttractionsParis.get(curId);
+    $rootScope.attractionSelected = curId;
+    $scope.attractionSelected = curId;
+  };
+
+  $scope.tapNext = function() {
+    var curId = this.attraction.id;
+    if(curId > this.attractions.length - 2)
+      curId = 0;
+    else
+      curId = curId + 1;
+    if(this.appDetectedLocation == 'sfbay')
+      $scope.attraction = AttractionsSFBay.get(curId);
+    else
+      $scope.attraction = AttractionsParis.get(curId);
+    $rootScope.attractionSelected = curId;
+    $scope.attractionSelected = curId;
+  };
+
+  $scope.add = function() {
+    var curId = this.attraction.id;
+    //Figure out if this is a duplicate
+    var duplicateFlag = false;
+    for(var i=0; i<$rootScope.mustDoList.length; i++) {
+      if($rootScope.mustDoList[i].id == curId) {
+        duplicateFlag = true;
+        $scope.showAlertDuplicate();
+      }
+    }
+    if(!duplicateFlag) {
+      //Add attraction to Must Do List
+      $rootScope.mustDoList.push({name: this.attraction.attraction, id: this.attraction.id});
+      $state.go('tab.agent-mustdo', {}, {reload: true});
+    }
+  };
+
+  $scope.showAlertDuplicate = function() {
+    var alertPopup = $ionicPopup.alert({
+      title: 'Duplicate Attraction',
+      template: 'You already have this attraction in your list!'
+    });
+    alertPopup.then(function(res) {
+      console.log('Alert!');
+    });
+  };
+
+})
+
+.controller('DetailsCtrl', function($scope, $state, $rootScope, $stateParams, AttractionsParis, AttractionsSFBay) {
+  if($scope.appDetectedLocation == 'sfbay') {
+    $scope.attraction = AttractionsSFBay.get(parseInt($stateParams.attId));
+    $scope.attractions = AttractionsSFBay.all();
+  }
+  else {
+    $scope.attraction = AttractionsParis.get(parseInt($stateParams.attId));
+    $scope.attractions = AttractionsParis.all();
+  }
 })
 
 .controller('MoodCtrl', function($scope, $rootScope, $state,Feelings) {
@@ -297,7 +718,8 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('DayCtrl', function($scope, $rootScope, $stateParams, $state, AttractionsParis, AttractionsSFBay) {
+.controller('DayCtrl', function($scope, $rootScope, $stateParams, $state, AttractionsParis, AttractionsSFBay, $ionicHistory) {
+  $ionicHistory.clearHistory();
   if(!$rootScope.pageReload) {
     //Add attraction to daySoFar
     if($scope.appDetectedLocation == 'sfbay')

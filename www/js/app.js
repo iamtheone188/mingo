@@ -40,6 +40,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     .state('tab.dash', {
       url: '/dash',
+      cache: false,
       views: {
         'tab-dash': {
           templateUrl: 'templates/tab-dash.html',
@@ -48,8 +49,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
 
-  .state('tab.mood', {
+    .state('tab.dash-debug', {
+      url: '/debug',
+      cache: false,
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/tab-dash-debug.html',
+          controller: 'DebugCtrl'
+        }
+      }
+    })
+
+    .state('tab.mood', {
       url: '/mood',
+      cache: false,
       views: {
         'tab-mood': {
           templateUrl: 'templates/tab-mood.html',
@@ -115,6 +128,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('tab.agent', {
     url: '/agent',
+    cache: false,
     views: {
       'tab-agent': {
         templateUrl: 'templates/tab-agent.html',
@@ -125,10 +139,44 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('tab.agent-where', {
     url: '/where',
+    cache: false,
     views: {
       'tab-agent': {
         templateUrl: 'templates/tab-agent-where.html',
         controller: 'WhereCtrl'
+      }
+    }
+  })
+
+  .state('tab.agent-mustdo', {
+    url: '/mustdo',
+    cache: false,
+    views: {
+      'tab-agent': {
+        templateUrl: 'templates/tab-agent-mustdo.html',
+        controller: 'MustDoCtrl'
+      }
+    }
+  })
+
+  .state('tab.agent-addattraction', {
+    url: '/addattraction',
+    cache: false,
+    views: {
+      'tab-agent': {
+        templateUrl: 'templates/tab-agent-addattraction.html',
+        controller: 'AddAttractionCtrl'
+      }
+    }
+  })
+
+  .state('tab.agent-details', {
+    url: '/details/:attId',
+    cache: false,
+    views: {
+      'tab-agent': {
+        templateUrl: 'templates/tab-agent-details.html',
+        controller: 'DetailsCtrl'
       }
     }
   });
