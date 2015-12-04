@@ -105,9 +105,8 @@ angular.module('starter.controllers', [])
     $scope.alarmTimes = tempString;
 
     var alarmPopup = $ionicPopup.show({
-        template: '<p style="text-align:center;">Alarm</p><p>Date: {{alarmDate}}</p><p>Time: {{alarmTimes}}</p>',
-        title: 'It\'s Mingo Time!',
-        subTitle: 'Mingo Alarm',
+        template: '<p style="text-align:center;">It\'s Mingo Time</p><p>Date: {{alarmDate}}</p><p>Time: {{alarmTimes}}</p>',
+        title: 'Mingo Alarm',
         scope: $scope,
         buttons: [
           {
@@ -139,9 +138,8 @@ angular.module('starter.controllers', [])
       $scope.endDateString = (e.getMonth()+1).toString() + '/' + e.getDate().toString() + '/' + e.getFullYear().toString();
 
       var tripPopup = $ionicPopup.show({
-        template: '<p>Trip Dates: {{startDateString}} - {{endDateString}}</p><div ng-if="appDetectedLocation == \'paris\'"><p>Trip Location: Paris, France</p></div><div ng-if="appDetectedLocation != \'paris\'"><p>Trip Location: San Francisco, California, USA</p></div>',
-        title: 'It\'s Mingo Time!',
-        subTitle: 'Mingo Trip',
+        template: '<p style="text-align:center;">It\'s Mingo Time</p><p>Trip Dates: {{startDateString}} - {{endDateString}}</p><div ng-if="appDetectedLocation == \'paris\'"><p>Trip Location: Paris, France</p></div><div ng-if="appDetectedLocation != \'paris\'"><p>Trip Location: San Francisco, California, USA</p></div>',
+        title: 'Mingo Trip',
         scope: $scope,
         buttons: [
           {
@@ -272,7 +270,8 @@ angular.module('starter.controllers', [])
 
 .controller('WhereCtrl', function($scope, $state, $rootScope, $ionicPopup) {
   $scope.searchString = $rootScope.searchString;
-  $scope.changeSearch = function(newString) { $scope.searchString = newString; };
+  $scope.stringChangedManually = false; //Fixing the weird two way update bug
+  $scope.changeSearch = function(newString) { $scope.searchString = newString; $scope.stringChangedManually = true;};
 
   $scope.changeLocation = function() {
     if($rootScope.searchString == "Paris, France") {
@@ -282,6 +281,10 @@ angular.module('starter.controllers', [])
     else {
       $rootScope.searchString = "Paris, France";
       $scope.searchString = "Paris, France";
+    }
+    if($scope.stringChangedManually) {
+      $state.go('tab.agent-where', {}, {reload: true});
+      $scope.stringChangedManually = false;
     }
   };
 

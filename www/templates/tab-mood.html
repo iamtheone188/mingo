@@ -3,6 +3,21 @@
   	<div class="app-bg">
 	    <h1 style="text-align:center;">What is your current mood?</h1>
 
+	    <div ng-if="appDetectedLocation == 'paris'">
+	    	<div class="list card">
+				<div class="item item-divider" style="background:#AAC2D2;text-align:center;">
+		    		Detected Location: Paris, France
+		    	</div>
+		    </div>
+		</div>
+		<div ng-if="appDetectedLocation != 'paris'">
+	    	<div class="list card">
+				<div class="item item-divider" style="background:#AAC2D2;text-align:center;">
+		    		Detected Location: San Francisco, California, USA
+		    	</div>
+		    </div>
+		</div>
+
 	    <label class="item item-input">
 		  <i class="icon ion-search placeholder-icon"></i>
 		  <input type="search" placeholder="Search">
